@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Orthodox Calendar</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 40px auto;
+        text-align: center;
+    }
+    h1 { margin-bottom: 5px; }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+    th, td {
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+    th { background: #eee; }
+    .sunday { color: darkred; font-weight: bold; }
+    .feast {
+        background: #ffefc2;
+        font-weight: bold;
+        border: 2px solid goldenrod;
+    }
+</style>
+</head>
+<body>
+
+<h1>Orthodox Liturgical Calendar</h1>
+<p id="monthYear"></p>
+
+<table id="calendar"></table>
+
+<script>
+// ✅ Feasts (add/edit as you wish)
+const feasts = {
+    "01-07": "Nativity of Christ",
+    "01-14": "Circumcision of the Lord",
+    "01-19": "Theophany",
+    "02-15": "Meeting of the Lord",
+    "04-07": "Annunciation",
+    "04-14": "Palm Sunday",
+    "04-20": "Holy Pascha (Easter)",
+    "05-09": "Ascension",
+    "05-19": "Pentecost",
+    "08-06": "Transfiguration",
+    "08-15": "Dormition of Theotokos"
+};
+
+// ✅ Build Calendar
+const today = new Date();
+const year = today.getFullYear();
+const month = today.getMonth(); // 0-indexed
+const firstDay = new Date(year, month, 1);
+const lastDate = new Date(year, month + 1, 0).getDate();
+
+document.getElementById("monthYear").textContent =
+    today.toLocaleString('en', { month: 'long', year: 'numeric' });
+
+let html = "<tr>";
+const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+days.forEach(d => html += `<th>${d}</th>`);
+html += "</tr><tr>";
+
+// Pad empty cells
+for (let i = 0; i < firstDay.getDay(); i++) html += "<td></td>";
+
+for (let d = 1; d <= lastDate; d++) {
+    const date = new Date(year, month, d);
+    const key = `${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isSunday = date.getDay() === 0;
+    const feast = feasts[key];
+
+    let classes = [];
+    if (isSunday) classes.push("sunday");
+    if (feast) classes.push("feast");
+
+    html += `<td class="${classes.join(" ")}">${d}${feast ? `<br><small>${feast}</small>` : ""}</td>`;
+
+    if (date.getDay() === 6) html += "</tr><tr>";
+}
+html += "</tr>";
+
+document.getElementById("calendar").innerHTML = html;
+</script>
+
+</body>
+</html>
