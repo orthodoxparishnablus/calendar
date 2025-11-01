@@ -1,93 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Orthodox Calendar</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        max-width: 600px;
-        margin: 40px auto;
-        text-align: center;
-    }
-    h1 { margin-bottom: 5px; }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 15px;
-    }
-    th, td {
-        padding: 10px;
-        border: 1px solid #ccc;
-    }
-    th { background: #eee; }
-    .sunday { color: darkred; font-weight: bold; }
-    .feast {
-        background: #ffefc2;
-        font-weight: bold;
-        border: 2px solid goldenrod;
-    }
-</style>
-</head>
-<body>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>التقويم الأرثوذكسي</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Menu Button -->
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
 
-<h1>Orthodox Liturgical Calendar</h1>
-<p id="monthYear"></p>
+    <!-- Menu -->
+    <div class="menu-overlay" onclick="toggleMenu()"></div>
+    <div class="menu" id="menu">
+      <a href="#" onclick="showContact(); return false;">اتصل بنا</a>
+    </div>
 
-<table id="calendar"></table>
+    <!-- Contact Page -->
+    <div class="contact-page" id="contactPage">
+      <button class="close-btn" onclick="closeContact()">×</button>
+      <h2>اتصل بنا</h2>
+      <p>البريد الإلكتروني:</p>
+      <p class="email">orthodoxparishnablus@gmail.com</p>
+    </div>
 
-<script>
-// ✅ Feasts (add/edit as you wish)
-const feasts = {
-    "01-07": "Nativity of Christ",
-    "01-14": "Circumcision of the Lord",
-    "01-19": "Theophany",
-    "02-15": "Meeting of the Lord",
-    "04-07": "Annunciation",
-    "04-14": "Palm Sunday",
-    "04-20": "Holy Pascha (Easter)",
-    "05-09": "Ascension",
-    "05-19": "Pentecost",
-    "08-06": "Transfiguration",
-    "08-15": "Dormition of Theotokos"
-};
+    <!-- Icons Area -->
+    <div class="icons-area">
+      <div class="icon">⛪</div>
+    </div>
 
-// ✅ Build Calendar
-const today = new Date();
-const year = today.getFullYear();
-const month = today.getMonth(); // 0-indexed
-const firstDay = new Date(year, month, 1);
-const lastDate = new Date(year, month + 1, 0).getDate();
+    <!-- Main Content -->
+    <div class="container">
+      <div class="main-content">
+        <!-- Date Navigation -->
+        <div class="date-navigation">
+          <button class="nav-btn" onclick="changeDate(1)">&lt;</button>
+          <div class="current-date" onclick="openCalendar()">
+            <h2 id="currentDay">اليوم</h2>
+            <p id="currentDate">التاريخ</p>
+          </div>
+          <button class="nav-btn" onclick="changeDate(-1)">&gt;</button>
+        </div>
 
-document.getElementById("monthYear").textContent =
-    today.toLocaleString('en', { month: 'long', year: 'numeric' });
+        <!-- Data Sections -->
+        <div class="data-section hidden" id="fastSection">
+          <h3>الصوم</h3>
+          <p id="fastInfo"></p>
+        </div>
 
-let html = "<tr>";
-const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-days.forEach(d => html += `<th>${d}</th>`);
-html += "</tr><tr>";
+        <div class="data-section hidden" id="holidaySection">
+          <h3>العيد</h3>
+          <p id="holidayInfo"></p>
+        </div>
 
-// Pad empty cells
-for (let i = 0; i < firstDay.getDay(); i++) html += "<td></td>";
+        <div class="data-section hidden" id="specialDaySection">
+          <h3>يوم خاص</h3>
+          <p id="specialDayInfo"></p>
+        </div>
 
-for (let d = 1; d <= lastDate; d++) {
-    const date = new Date(year, month, d);
-    const key = `${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    const isSunday = date.getDay() === 0;
-    const feast = feasts[key];
+        <div class="data-section hidden" id="saintsSection">
+          <h3>القديسين</h3>
+          <p id="saintsInfo"></p>
+        </div>
+      </div>
+    </div>
 
-    let classes = [];
-    if (isSunday) classes.push("sunday");
-    if (feast) classes.push("feast");
+    <!-- Calendar Picker Modal -->
+    <div
+      class="calendar-modal"
+      id="calendarModal"
+      onclick="closeCalendarOnOverlay(event)"
+    >
+      <div class="calendar-content" onclick="event.stopPropagation()">
+        <div class="calendar-header">
+          <button class="calendar-nav-btn" onclick="changeCalendarMonth(-1)">
+            ◀
+          </button>
+          <h3 id="calendarMonthYear"></h3>
+          <button class="calendar-nav-btn" onclick="changeCalendarMonth(1)">
+            ▶
+          </button>
+        </div>
+        <div id="calendarGrid"></div>
+      </div>
+    </div>
 
-    html += `<td class="${classes.join(" ")}">${d}${feast ? `<br><small>${feast}</small>` : ""}</td>`;
-
-    if (date.getDay() === 6) html += "</tr><tr>";
-}
-html += "</tr>";
-
-document.getElementById("calendar").innerHTML = html;
-</script>
-
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

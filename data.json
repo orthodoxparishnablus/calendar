@@ -1,0 +1,21 @@
+{
+  "2025-01-07": {
+    "fast": null,
+    "holiday": "Nativity of Christ",
+    "specialDay": "Great Feast",
+    "saints": ["Saint Basil the Great"]
+  },
+  "2025-01-19": {
+    "fast": null,
+    "holiday": "Theophany",
+    "specialDay": "Great Feast",
+    "saints": []
+  },
+  "2025-03-25": {
+    "fast": null,
+    "holiday": "Annunciation",
+    "specialDay": "Great Feast",
+    "saints": []
+  }
+}
+
