@@ -185,9 +185,10 @@ function updateDataSections() {
 
     // Saints section
     if (dateData && dateData.saints && dateData.saints.length > 0) {
-        // Format saints list: join with comma or Arabic separator
-        const saintsText = dateData.saints.join('، '); // Arabic comma separator
-        showSection('saintsSection', saintsText);
+        // Format saints list: create HTML list
+        const saintsList = dateData.saints.map(saint => `<li>${saint}</li>`).join('');
+        const saintsHtml = `<ul>${saintsList}</ul>`;
+        showSection('saintsSection', saintsHtml);
     } else {
         hideSection('saintsSection');
     }
@@ -197,7 +198,7 @@ function showSection(sectionId, content) {
     const section = document.getElementById(sectionId);
     const infoElement = document.getElementById(sectionId.replace('Section', 'Info'));
     if (section && infoElement) {
-        infoElement.textContent = content;
+        infoElement.innerHTML = content;
         section.classList.remove('hidden');
     }
 }

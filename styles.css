@@ -456,23 +456,36 @@
    border-bottom-color: #333;
  }
 
- /* Church Logo */
- .church-logo {
-   position: fixed;
-   bottom: 20px;
-   left: 20px;
-   width: 160px;
-   height: auto;
-   opacity: 0.4;
-   transition: opacity 0.3s ease;
-   z-index: 10;
-   pointer-events: none;
- }
 
- @media (max-width: 768px) {
-   .church-logo {
-     width: 120px;
-     bottom: 0px;
-     left: 0px;
-   }
- }
+/* Church Logo */
+.church-logo {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 160px;
+  height: auto;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .church-logo {
+    width: 120px;
+    bottom: 0px;
+    left: 0px;
+  }
+}
+
+/* Saints List Styling */
+#saintsInfo ul {
+  list-style-type: disc;
+  padding-right: 20px; /* Space for bullets in RTL */
+  margin: 0;
+}
+
+#saintsInfo li {
+  margin-bottom: 5px;
+  line-height: 1.5;
+}
