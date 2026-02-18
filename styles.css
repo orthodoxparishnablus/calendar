@@ -456,7 +456,6 @@
    border-bottom-color: #333;
  }
 
-
  /* Church Logo */
  .church-logo {
    position: fixed;
@@ -489,4 +488,13 @@
  #saintsInfo li {
    margin-bottom: 5px;
    line-height: 1.5;
+ }
+
+ /* Fish Icon */
+ .fish-icon {
+   width: 30px;
+   height: auto;
+   vertical-align: middle;
+   margin-right: 10px;
+   display: inline-block;
  }

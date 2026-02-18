@@ -164,6 +164,11 @@ function updateDataSections() {
 
     // Fast section
     if (dateData && dateData.fast) {
+        // let content = dateData.fast;
+        // if (content.includes("صيام يسمح بأكل السمك")) {
+        //     content += ' <img src="fish.png" class="fish-icon" alt="Fish Allowed">';
+        // }
+        // showSection('fastSection', content);
         showSection('fastSection', dateData.fast);
     } else {
         hideSection('fastSection');
